@@ -607,7 +607,7 @@ func calProcess(w http.ResponseWriter,r *http.Request){
 
 
 func main() {
-
+	fmt.Println("Welcome To Color's Calculator");
 	http.HandleFunc("/", index_handler);
 	http.HandleFunc("/calProcess",calProcess);
 	err := http.ListenAndServe(":8888", nil);
