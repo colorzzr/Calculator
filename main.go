@@ -214,6 +214,10 @@ func basicCalStack(operation [] string) (float64, string) {
 	//then use the stack calculation to get answer
 	answer, err := stackCalculation(numSta, opSta);
 
+	if math.IsInf(answer, 0){
+		return 0, "Yoooo Congratulation You Got Infinity!";
+	}
+
 	return answer, err;
 }
 
