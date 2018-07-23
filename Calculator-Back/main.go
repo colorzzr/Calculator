@@ -606,12 +606,14 @@ func calProcess(w http.ResponseWriter,r *http.Request){
 
 	//storeAnsToDataBase(answerPack, recievedData);
 	htmlRepson(w, r, answerPack);
+	pushAns(answerPack);
 	fmt.Println("-----Finish Data Exchange------");
 }
 
 
 func main() {
 	fmt.Println("Welcome To Color's Calculator");
+	ConnectToServer();
 	http.HandleFunc("/", index_handler);
 	http.HandleFunc("/calProcess",calProcess);
 	err := http.ListenAndServe(":8888", nil);
