@@ -14,7 +14,7 @@ func ConnectToServer(){
 	//initial the parse sever with appid masterkey
 	parse.Initialize("Calculator", "UpdKbelU7zvtsCCW", "jQAr0Xqhbkw45mSW");
 	//give the target server
-	parse.ServerURL("http://localhost:8080/v1");
+	parse.ServerURL("http://127.0.0.1:8080/v1");
 }
 
 func pushAns(ans returnPack){

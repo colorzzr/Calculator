@@ -3,7 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="f8af9aad-13c5-44d1-8a90-5979291a412b" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Calculator-Back/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/Calculator-Back/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Calculator-Back/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/Calculator-Back/server.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -14,16 +15,27 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="main.go" pinned="false" current-in-tab="false">
+      <file leaf-file-name="main.go" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Calculator-Back/main.go">
-          <provider selected="true" editor-type-id="text-editor" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="149">
+              <caret line="168" column="39" selection-start-line="168" selection-start-column="39" selection-end-line="168" selection-end-column="39" />
+              <folding>
+                <element signature="n#!!block;n#storeAnsToDataBase#0" />
+                <element signature="n#!!block;n#simpleCal#0" />
+                <element signature="n#!!block;n#splitRealImaOp#0" />
+                <element signature="n#!!block;n#stackCalculationIm#0" />
+                <element signature="n#!!block;n#simpleCalIm#0" />
+              </folding>
+            </state>
+          </provider>
         </entry>
       </file>
-      <file leaf-file-name="server.go" pinned="false" current-in-tab="true">
+      <file leaf-file-name="server.go" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Calculator-Back/server.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="399">
-              <caret line="22" column="1" selection-start-line="22" selection-start-column="1" selection-end-line="22" selection-end-column="1" />
+            <state relative-caret-position="42">
+              <caret line="5" column="1" selection-start-line="5" selection-start-column="1" selection-end-line="5" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -37,6 +49,12 @@
       </list>
     </option>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>splitRealImaOp</find>
+      <find>Cannot Divide By Zero!</find>
+    </findStrings>
+  </component>
   <component name="GOROOT" path="/usr/local/go" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -49,6 +67,7 @@
         <option value="$PROJECT_DIR$/Parse-Server/connectServer.go" />
         <option value="$PROJECT_DIR$/Parse-Server/hdswitch-backend.go" />
         <option value="$PROJECT_DIR$/Calculator-Back/server.go" />
+        <option value="$PROJECT_DIR$/Calculator-Back/main.go" />
       </list>
     </option>
   </component>
@@ -133,20 +152,20 @@
     </list>
   </component>
   <component name="ToolWindowManager">
-    <frame x="64" y="-11" width="1857" height="1092" extended-state="6" />
+    <frame x="65" y="-4" width="1855" height="1084" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.13045822" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13045822" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.34081632" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.43571427" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -399,13 +418,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Parse-Server/connectServer.go" />
     <entry file="file://$PROJECT_DIR$/Parse-Server/hdswitch-backend.go" />
-    <entry file="file://$PROJECT_DIR$/Calculator-Back/main.go">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/Calculator-Back/server.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="22" column="1" selection-start-line="22" selection-start-column="1" selection-end-line="22" selection-end-column="1" />
+        <state relative-caret-position="42">
+          <caret line="5" column="1" selection-start-line="5" selection-start-column="1" selection-end-line="5" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Calculator-Back/main.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="149">
+          <caret line="168" column="39" selection-start-line="168" selection-start-column="39" selection-end-line="168" selection-end-column="39" />
+          <folding>
+            <element signature="n#!!block;n#storeAnsToDataBase#0" />
+            <element signature="n#!!block;n#simpleCal#0" />
+            <element signature="n#!!block;n#splitRealImaOp#0" />
+            <element signature="n#!!block;n#stackCalculationIm#0" />
+            <element signature="n#!!block;n#simpleCalIm#0" />
+          </folding>
         </state>
       </provider>
     </entry>

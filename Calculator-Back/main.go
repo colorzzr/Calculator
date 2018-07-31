@@ -130,6 +130,7 @@ func basicCalStack(operation [] string) (float64, string) {
 	var numOfParenthesis int64 = 0;
 	for i := 0; i < len(operation); i++{
 		numtemp, err := strconv.ParseFloat(operation[i], 64);
+		fmt.Println(numtemp, err);
 		//then it is a operataion
 		if err != nil {
 			//create a new node for oprand
@@ -165,7 +166,7 @@ func basicCalStack(operation [] string) (float64, string) {
 				newOp.opLevel = curOpLevel;
 
 				//error divide by 0
-				if numtemp == 0{
+				if operation[i] == "0"{
 					return 0, "Cannot Divide By Zero!";
 				}
 
@@ -333,7 +334,6 @@ func imageCalStack(operation [] string) (complex128, string){
 	var numOfParenthesis int64 = 0;
 	for i := 0; i < len(operation); i++{
 		numtemp, codeType := splitRealImaOp(operation[i]);
-
 		//then it is a operataion
 		if codeType == 2 {
 			//create a new node for oprand
