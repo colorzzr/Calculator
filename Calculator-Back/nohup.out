@@ -1,0 +1,31 @@
+main.go:12:2: cannot find package "github.com/go-sql-driver/mysql" in any of:
+	/usr/local/go/src/github.com/go-sql-driver/mysql (from $GOROOT)
+	/home/ubuntu/go/src/github.com/go-sql-driver/mysql (from $GOPATH)
+server.go:5:2: cannot find package "github.com/kylemcc/parse" in any of:
+	/usr/local/go/src/github.com/kylemcc/parse (from $GOROOT)
+	/home/ubuntu/go/src/github.com/kylemcc/parse (from $GOPATH)
+Welcome To Color's Calculator
+------Connect to Sever------
+------calProcess Ack!------
+------Start Print Request------
+Host:  18.222.148.18:8888
+Method  POST
+URL:  /calProcess
+Parameter:  map[]
+Encode:  first=%7B%22InputOp%22%3A%5B%221111%22%2C%22-%22%2C%22444%22%5D%2C%22OperatingMode%22%3A0%7D
+Body:  0 EOF
+{"InputOp":["1111","-","444"],"OperatingMode":0}
+[1111 - 444]
+Operating Mode: 0
+OpRand: [{- 1} {eof -32767}]
+Number [1111 444 -32767]
+topLevel: 1 curLevel: -32767
+OpRand: [1111 444]
+Number [{- 1}]
+Now OpRand: []
+Now Number [667]
+------Start Print Response------
+[123 34 82 101 97 108 34 58 54 54 55 44 34 73 109 97 103 105 110 97 114 121 34 58 48 44 34 69 114 114 111 114 77 115 103 34 58 34 71 111 111 100 34 125]
+{"Real":667,"Imaginary":0,"ErrorMsg":"Good"}
+<nil>
+-----Finish Data Exchange------
