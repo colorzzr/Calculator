@@ -10,6 +10,7 @@ import (
 
 	"database/sql"
 	_ "github.com/go-sql-driver/mysql"
+	"time"
 )
 
 type recievePack struct {
@@ -25,7 +26,9 @@ type opeRand struct {
 type returnPack struct {
 	Real  float64;
 	Imaginary float64;
+	OperationMode int64;
 	ErrorMsg string;
+	Date string;
 }
 
 //----------------------------------tcp html recieve and return---------------------------------
@@ -557,57 +560,60 @@ func filterExp(input [] string) ([]string, string){
 }
 
 func calProcess(w http.ResponseWriter,r *http.Request){
-	fmt.Println("------calProcess Ack!------");
+	fmt.Println("------calProcess Ack!------")
 
 
 
 	//print request info
-	w.Header().Set("Access-Control-Allow-Origin", "*");
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	index_handler(w, r);
 
 
 
 	//get the data in struct
-	recievedData := recieveData(w,r);
-	fmt.Println(recievedData.InputOp);
-	fmt.Println("Operating Mode:", recievedData.OperatingMode);
+	recievedData := recieveData(w,r)
+	fmt.Println(recievedData.InputOp)
+	fmt.Println("Operating Mode:", recievedData.OperatingMode)
 
 	var answerPack returnPack;
 	//abs mode
 	if recievedData.OperatingMode == 2{
-		answer, errMsg := imageCalStack(recievedData.InputOp);
+		answer, errMsg := imageCalStack(recievedData.InputOp)
 
 		//get the mag and phase for abs
-		magnitude := math.Sqrt(math.Pow(real(answer), 2) + math.Pow(imag(answer), 2));
-		phase := math.Atan(imag(answer)/real(answer));
+		magnitude := math.Sqrt(math.Pow(real(answer), 2) + math.Pow(imag(answer), 2))
+		phase := math.Atan(imag(answer)/real(answer))
 		//forming the return package
-		answerPack.Real = magnitude;
-		answerPack.Imaginary = phase;
-		answerPack.ErrorMsg = errMsg;
+		answerPack.Real = magnitude
+		answerPack.Imaginary = phase
+		answerPack.ErrorMsg = errMsg
 
 
 		//imaginery mode
 	}else if recievedData.OperatingMode == 1{
-		answer, errMsg := imageCalStack(recievedData.InputOp);
+		answer, errMsg := imageCalStack(recievedData.InputOp)
 		//forming the return package
-		answerPack.Real = real(answer);
-		answerPack.Imaginary = imag(answer);
+		answerPack.Real = real(answer)
+		answerPack.Imaginary = imag(answer)
 		//if nothing wrong return Good
-		answerPack.ErrorMsg = errMsg;
+		answerPack.ErrorMsg = errMsg
 		//real mode
 	}else {
-		answer, errMsg := basicCalStack(recievedData.InputOp);
+		answer, errMsg := basicCalStack(recievedData.InputOp)
 		//forming the return package
-		answerPack.Real = answer;
-		answerPack.Imaginary = 0;
+		answerPack.Real = answer
+		answerPack.Imaginary = 0
 		//if nothing wrong return Good
-		answerPack.ErrorMsg = errMsg;
+		answerPack.ErrorMsg = errMsg
 	}
 
+	answerPack.OperationMode = recievedData.OperatingMode
+	y, m, d := time.Now().Date()
+	answerPack.Date = strconv.Itoa(y) + "-" + m.String() + "-" + strconv.Itoa(d)
 	//storeAnsToDataBase(answerPack, recievedData);
-	htmlRepson(w, r, answerPack);
-	pushAns(answerPack);
-	fmt.Println("-----Finish Data Exchange------");
+	htmlRepson(w, r, answerPack)
+	pushAns(answerPack)
+	fmt.Println("-----Finish Data Exchange------")
 }
 
 
