@@ -13,18 +13,19 @@ type variableInfo struct {
 }
 
 // for currently, it only solve the 2nd and 3rd order
-func higherOrderCalc(inputOp []string){
+func higherOrderCalc(inputOp []string) []float64{
 
 	paraInOrder, highestOrder := flteringOrder(inputOp);
 
+	var ans []float64
 	//then using formulas to solve them
 	if highestOrder == 1{
 		fmt.Println("-----Order 1------")
-		ans := order1func(paraInOrder[:highestOrder + 1])
+		ans = order1func(paraInOrder[:highestOrder + 1])
 		fmt.Println(ans)
 	}else if highestOrder == 2{
 		fmt.Println("-----Order 2------")
-		ans := order2func(paraInOrder[:highestOrder + 1])
+		ans = order2func(paraInOrder[:highestOrder + 1])
 		fmt.Println(ans)
 	}else if highestOrder == 3{
 		fmt.Println("-----Order 3------")
@@ -34,6 +35,7 @@ func higherOrderCalc(inputOp []string){
 
 	}
 
+	return ans
 }
 
 // input op supposes to be like ["2x2", "+" ,"1"] -> 2x^2 + 1 = 0
@@ -69,7 +71,7 @@ func flteringOrder(inputOp []string)([5]float64, int64){
 		indexPara, order  := splitindexAndOrder(numArr[i + 1])
 
 		//check sign
-		if (opArr[i] == "+"){
+		if opArr[i] == "a"{
 			indexParaArr[order] = indexParaArr[order] + indexPara
 		}else {
 			indexParaArr[order] = indexParaArr[order] - indexPara
@@ -108,23 +110,18 @@ func splitindexAndOrder(varible string)(float64, int64){
 
 
 //assume now is ax + b = 0
-func order1func(paraInOrder []float64)float64{
+func order1func(paraInOrder []float64)[]float64{
 	fmt.Println(paraInOrder)
-	return (paraInOrder[0]/ paraInOrder[1]);
-}
-
-func spiltParaOfOrder2(opArr []string, numArr []float64)(int64, int64, int64){
-
-	return 1, 2, 3
+	return []float64{(-paraInOrder[0]/ paraInOrder[1])}
 }
 
 func order2func(paraInOrder []float64)[]float64{
-	a, b, c := paraInOrder[0], paraInOrder[1], paraInOrder[2]
+	a, b, c := paraInOrder[2], paraInOrder[1], paraInOrder[0]
 	bqrm4ac := math.Pow(b, 2) - 4*a*c
 	var ans1, ans2 float64
 	if bqrm4ac >= 0{
-		ans1 = (-b+bqrm4ac)/(2*a)
-		ans2 = (-b-bqrm4ac)/(2*a)
+		ans1 = (- b + math.Sqrt(bqrm4ac))/(2*a)
+		ans2 = (- b - math.Sqrt(bqrm4ac))/(2*a)
 	}
 
 	return []float64{ans1, ans2}

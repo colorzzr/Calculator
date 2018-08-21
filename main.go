@@ -8,27 +8,27 @@ import (
 	"math"
 	"log"
 
-	"database/sql"
 	_ "github.com/go-sql-driver/mysql"
 	"time"
 )
 
 type recievePack struct {
-	InputOp [] string;
-	OperatingMode int64;
+	InputOp [] string
+	OperatingMode int64
 }
 
 type opeRand struct {
-	operation string;
-	opLevel int64;
+	operation string
+	opLevel int64
 }
 
 type returnPack struct {
-	Real  float64;
-	Imaginary float64;
-	OperationMode int64;
-	ErrorMsg string;
-	Date string;
+	//Real  float64
+	//Imaginary float64
+	Answer string
+	OperationMode int64
+	ErrorMsg string
+	Date string
 }
 
 //----------------------------------tcp html recieve and return---------------------------------
@@ -82,34 +82,6 @@ func recieveData(w http.ResponseWriter,r *http.Request) recievePack {
 	return calPackage;
 }
 //-----------------------------------finish tcp-------------------------------------------------
-//-----------------------------------start database---------------------------------------------------
-
-//trouble shooting
-func checkErr(err error) {
-	if err != nil {
-		panic(err)
-	}
-}
-
-//using MySQL to store the Calculation History
-func storeAnsToDataBase(backinfo returnPack, input recievePack){
-	fmt.Println("-----Start Connect MySQL-----");
-	db, err := sql.Open("mysql", "root:45678zzr@tcp(localhost:3306)/test")
-	checkErr(err)
-
-	//插入数据
-	//stmt, err := db.Prepare("INSERT history SET calAns=?,errMsg=?,OpMode=?")
-	stmt, err := db.Prepare(`INSERT history (calAnsReal, calAnsImg, errMsg, OpMode) values (?,?,?,?)`);
-	checkErr(err)
-
-	res, err := stmt.Exec(backinfo.Real, backinfo.Imaginary, backinfo.ErrorMsg, input.OperatingMode);
-	checkErr(err)
-
-	id, err := res.LastInsertId()
-	checkErr(err)
-
-	fmt.Println(id)
-}
 
 
 
@@ -130,10 +102,10 @@ func basicCalStack(operation [] string) (float64, string) {
 	var numSta [] float64;
 	var opSta [] opeRand;
 
-	var numOfParenthesis int64 = 0;
+	var numOfParenthesis int64 = 0
 	for i := 0; i < len(operation); i++{
-		numtemp, err := strconv.ParseFloat(operation[i], 64);
-		fmt.Println(numtemp, err);
+		numtemp, err := strconv.ParseFloat(operation[i], 64)
+		fmt.Println(numtemp, err)
 		//then it is a operataion
 		if err != nil {
 			//create a new node for oprand
@@ -142,18 +114,18 @@ func basicCalStack(operation [] string) (float64, string) {
 			//sort the level
 			switch operation[i] {
 			case "a":
-				curOpLevel = 1 + numOfParenthesis * 3;
+				curOpLevel = 1 + numOfParenthesis * 3
 				//create new node
-				newOp.operation = operation[i];
-				newOp.opLevel = curOpLevel;
-				opSta = append(opSta, newOp);
+				newOp.operation = operation[i]
+				newOp.opLevel = curOpLevel
+				opSta = append(opSta, newOp)
 				break;
 			case "-":
-				curOpLevel = 1 + numOfParenthesis * 3;
+				curOpLevel = 1 + numOfParenthesis * 3
 				//create new node
-				newOp.operation = operation[i];
-				newOp.opLevel = curOpLevel;
-				opSta = append(opSta, newOp);
+				newOp.operation = operation[i]
+				newOp.opLevel = curOpLevel
+				opSta = append(opSta, newOp)
 				break;
 			case "*":
 				curOpLevel = 2 + numOfParenthesis * 3;
@@ -170,19 +142,19 @@ func basicCalStack(operation [] string) (float64, string) {
 
 				//error divide by 0
 				if operation[i] == "0"{
-					return 0, "Cannot Divide By Zero!";
+					return 0, "Cannot Divide By Zero!"
 				}
 
-				opSta = append(opSta, newOp);
+				opSta = append(opSta, newOp)
 				break;
 			case "(":
-				numOfParenthesis++;
-				break;
+				numOfParenthesis++
+				break
 			case ")":
-				numOfParenthesis--;
-				break;
+				numOfParenthesis--
+				break
 			case "^":
-				curOpLevel = 3 + numOfParenthesis * 3;
+				curOpLevel = 3 + numOfParenthesis * 3
 				//create new node
 				newOp.operation = operation[i];
 				newOp.opLevel = curOpLevel;
@@ -404,29 +376,29 @@ func imageCalStack(operation [] string) (complex128, string){
 	//--------------------------------------------error checking----------------------------------------------
 	//too much ()
 	if numOfParenthesis > 0{
-		return 0, "Missing One of Closed Parenthesis!";
+		return 0, "Missing One of Closed Parenthesis!"
 	}else if numOfParenthesis < 0{
-		return 0, "Missing One of Open Parenthesis!";
+		return 0, "Missing One of Open Parenthesis!"
 	}
 	//fmt.Println(len(numSta), len(opSta));
 	//too much operation
 	if len(numSta) != len(opSta) + 1{
-		return 0, "Too Much Operations";
+		return 0, "Too Much Operations"
 	}
 
 
 
-	var temp  = opeRand{"eof", -32767};
-	opSta = append(opSta, temp);
-	numSta = append(numSta, -32767);
+	var temp  = opeRand{"eof", -32767}
+	opSta = append(opSta, temp)
+	numSta = append(numSta, -32767)
 
-	fmt.Println("OpRand:", opSta);
-	fmt.Println("Number", numSta);
+	fmt.Println("OpRand:", opSta)
+	fmt.Println("Number", numSta)
 
 	//then use the stack calculation to get answer
-	answer, err := stackCalculationIm(numSta, opSta);
+	answer, err := stackCalculationIm(numSta, opSta)
 
-	return answer, err;
+	return answer, err
 }
 
 func stackCalculationIm(numSta [] complex128, opSta[] opeRand)(complex128, string){
@@ -575,34 +547,45 @@ func calProcess(w http.ResponseWriter,r *http.Request){
 	fmt.Println(recievedData.InputOp)
 	fmt.Println("Operating Mode:", recievedData.OperatingMode)
 
-	var answerPack returnPack;
-	//abs mode
-	if recievedData.OperatingMode == 2{
+	var answerPack returnPack
+	//higher order mode
+	if recievedData.OperatingMode == 3{
+		answer := higherOrderCalc(recievedData.InputOp)
+		var ansStr string;
+		//format all possible answer
+		for i := 0; i < len(answer); i++{
+			ansStr = ansStr + "x" +
+				strconv.Itoa(i) + "=" +
+				strconv.FormatFloat(answer[i], 'f', -1, 64) + " "
+		}
+
+		answerPack.Answer = ansStr
+		answerPack.ErrorMsg = "Good"
+		//abs mode
+	}else if recievedData.OperatingMode == 2{
 		answer, errMsg := imageCalStack(recievedData.InputOp)
 
 		//get the mag and phase for abs
 		magnitude := math.Sqrt(math.Pow(real(answer), 2) + math.Pow(imag(answer), 2))
 		phase := math.Atan(imag(answer)/real(answer))
-		//forming the return package
-		answerPack.Real = magnitude
-		answerPack.Imaginary = phase
+		//forming the return package aaaas mag:a + phaaaase:b
+		answerPack.Answer = "Magnitude:" + strconv.FormatFloat(magnitude, 'f', -1, 64) + "+" +
+			"Magnitude:" + strconv.FormatFloat(phase, 'f', -1, 64)
 		answerPack.ErrorMsg = errMsg
-
 
 		//imaginery mode
 	}else if recievedData.OperatingMode == 1{
 		answer, errMsg := imageCalStack(recievedData.InputOp)
-		//forming the return package
-		answerPack.Real = real(answer)
-		answerPack.Imaginary = imag(answer)
+		//forming the return package a + bi
+		answerPack.Answer = strconv.FormatFloat(real(answer), 'f', -1, 64) + "+" +
+			strconv.FormatFloat(imag(answer), 'f', -1, 64) + "i"
 		//if nothing wrong return Good
 		answerPack.ErrorMsg = errMsg
 		//real mode
 	}else {
 		answer, errMsg := basicCalStack(recievedData.InputOp)
 		//forming the return package
-		answerPack.Real = answer
-		answerPack.Imaginary = 0
+		answerPack.Answer = strconv.FormatFloat(answer, 'f', -1, 64)
 		//if nothing wrong return Good
 		answerPack.ErrorMsg = errMsg
 	}
@@ -618,14 +601,14 @@ func calProcess(w http.ResponseWriter,r *http.Request){
 
 
 func main() {
-	fmt.Println("Welcome To Color's Calculator");
+	fmt.Println("Welcome To Color's Calculator")
 	ConnectToServer();
 
-	http.HandleFunc("/", index_handler);
-	http.HandleFunc("/calProcess",calProcess);
-	err := http.ListenAndServe(":8888", nil);
+	http.HandleFunc("/", index_handler)
+	http.HandleFunc("/calProcess",calProcess)
+	err := http.ListenAndServe(":8888", nil)
 	if err != nil {
-		log.Fatal("ListenAndServer: ", err);
+		log.Fatal("ListenAndServer: ", err)
 	}
 
 }
