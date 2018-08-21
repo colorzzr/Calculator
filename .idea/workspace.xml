@@ -4,6 +4,7 @@
     <list default="true" id="f8af9aad-13c5-44d1-8a90-5979291a412b" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/higherOrder.go" beforeDir="false" afterPath="$PROJECT_DIR$/higherOrder.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/higherOrder_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/higherOrder_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -23,8 +24,12 @@
       <file leaf-file-name="main.go" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="310">
-              <caret line="562" column="36" selection-start-line="562" selection-start-column="36" selection-end-line="562" selection-end-column="36" />
+            <state relative-caret-position="168">
+              <caret line="562" column="28" lean-forward="true" selection-start-line="562" selection-start-column="28" selection-end-line="562" selection-end-column="28" />
+              <folding>
+                <element signature="e#14#131#0" expanded="true" />
+                <marker date="1534863590328" expanded="true" signature="14515:14934" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -32,11 +37,13 @@
       <file leaf-file-name="higherOrder.go" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/higherOrder.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="303">
-              <caret line="122" column="18" selection-start-line="122" selection-start-column="18" selection-end-line="122" selection-end-column="18" />
+            <state relative-caret-position="294">
+              <caret line="153" column="56" selection-start-line="153" selection-start-column="56" selection-end-line="153" selection-end-column="56" />
               <folding>
                 <element signature="n#!!block;n#flteringOrder#0" />
                 <element signature="n#!!block;n#splitindexAndOrder#0" />
+                <element signature="n#!!block;n#order1func#0" />
+                <element signature="n#!!block;n#order2func#0" />
               </folding>
             </state>
           </provider>
@@ -45,8 +52,11 @@
       <file leaf-file-name="higherOrder_test.go" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/higherOrder_test.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="5" column="29" selection-start-line="5" selection-start-column="29" selection-end-line="5" selection-end-column="29" />
+            <state relative-caret-position="273">
+              <caret line="55" column="35" lean-forward="true" selection-start-line="55" selection-start-column="35" selection-end-line="55" selection-end-column="35" />
+              <folding>
+                <element signature="e#14#42#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -93,8 +103,8 @@
         <option value="$PROJECT_DIR$/Calculator-Back/server.go" />
         <option value="$PROJECT_DIR$/Calculator-Back/main.go" />
         <option value="$PROJECT_DIR$/../github.com/TheDemx27/higherOrder_test.go" />
-        <option value="$PROJECT_DIR$/higherOrder_test.go" />
         <option value="$PROJECT_DIR$/main.go" />
+        <option value="$PROJECT_DIR$/higherOrder_test.go" />
         <option value="$PROJECT_DIR$/higherOrder.go" />
       </list>
     </option>
@@ -108,7 +118,7 @@
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths />
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="65" />
     <option name="y" value="-4" />
     <option name="width" value="735" />
@@ -210,47 +220,47 @@
     </list>
   </component>
   <component name="TestHistory">
-    <history-entry file="Calc_Test - 2018.08.21 at 04h 10m 19s.xml">
+    <history-entry file="Calc_Test - 2018.08.22 at 00h 07m 26s.xml">
       <configuration name="Calc Test" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="Calc_Test - 2018.08.21 at 04h 12m 54s.xml">
+    <history-entry file="Calc_Test - 2018.08.22 at 00h 08m 36s.xml">
       <configuration name="Calc Test" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="Calc_Test - 2018.08.21 at 04h 13m 38s.xml">
+    <history-entry file="Calc_Test - 2018.08.22 at 00h 35m 08s.xml">
       <configuration name="Calc Test" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="Calc_Test - 2018.08.21 at 04h 13m 42s.xml">
+    <history-entry file="Calc_Test - 2018.08.22 at 00h 35m 41s.xml">
       <configuration name="Calc Test" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="Calc_Test - 2018.08.21 at 04h 13m 47s.xml">
+    <history-entry file="Calc_Test - 2018.08.22 at 02h 41m 45s.xml">
       <configuration name="Calc Test" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="Calc_Test - 2018.08.21 at 04h 14m 08s.xml">
+    <history-entry file="Calc_Test - 2018.08.22 at 02h 42m 18s.xml">
       <configuration name="Calc Test" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="Calc_Test - 2018.08.21 at 04h 14m 17s.xml">
+    <history-entry file="Calc_Test - 2018.08.22 at 02h 51m 20s.xml">
       <configuration name="Calc Test" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="Calc_Test - 2018.08.21 at 04h 14m 31s.xml">
+    <history-entry file="Calc_Test - 2018.08.22 at 02h 53m 24s.xml">
       <configuration name="Calc Test" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="Calc_Test - 2018.08.21 at 04h 14m 45s.xml">
+    <history-entry file="Calc_Test - 2018.08.22 at 02h 53m 41s.xml">
       <configuration name="Calc Test" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="Calc_Test - 2018.08.21 at 10h 05m 54s.xml">
+    <history-entry file="Calc_Test - 2018.08.22 at 02h 57m 46s.xml">
       <configuration name="Calc Test" configurationId="GoTestRunConfiguration" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="65" y="-4" width="1855" height="1084" extended-state="6" />
+    <frame x="64" y="-11" width="1857" height="1092" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19215903" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.07509663" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.37366167" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.4282655" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="7" />
@@ -277,13 +287,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file:///usr/local/go/src/net/http/request.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="25956">
-          <caret line="1236" column="18" selection-start-line="1236" selection-start-column="18" selection-end-line="1236" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/local/go/src/io/io.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1575">
@@ -478,9 +481,6 @@
     <entry file="file://$PROJECT_DIR$/Parse-Server/hdswitch-backend.go" />
     <entry file="file://$PROJECT_DIR$/Calculator-Back/server.go" />
     <entry file="file://$PROJECT_DIR$/Calculator-Back/main.go" />
-    <entry file="file://$PROJECT_DIR$/../github.com/TheDemx27/calculus/function.go">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/../github.com/TheDemx27/calculus/calculus.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2583">
@@ -499,27 +499,46 @@
     <entry file="file://$PROJECT_DIR$/server.go">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/higherOrder_test.go">
+    <entry file="file:///usr/local/go/src/math/cmplx/pow.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="5" column="29" selection-start-line="5" selection-start-column="29" selection-end-line="5" selection-end-column="29" />
+        <state relative-caret-position="504">
+          <caret line="48" column="5" selection-start-line="48" selection-start-column="5" selection-end-line="48" selection-end-column="5" />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/../github.com/TheDemx27/calculus/function.go">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/main.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="310">
-          <caret line="562" column="36" selection-start-line="562" selection-start-column="36" selection-end-line="562" selection-end-column="36" />
+        <state relative-caret-position="168">
+          <caret line="562" column="28" lean-forward="true" selection-start-line="562" selection-start-column="28" selection-end-line="562" selection-end-column="28" />
+          <folding>
+            <element signature="e#14#131#0" expanded="true" />
+            <marker date="1534863590328" expanded="true" signature="14515:14934" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/higherOrder_test.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="55" column="35" lean-forward="true" selection-start-line="55" selection-start-column="35" selection-end-line="55" selection-end-column="35" />
+          <folding>
+            <element signature="e#14#42#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/higherOrder.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="303">
-          <caret line="122" column="18" selection-start-line="122" selection-start-column="18" selection-end-line="122" selection-end-column="18" />
+        <state relative-caret-position="294">
+          <caret line="153" column="56" selection-start-line="153" selection-start-column="56" selection-end-line="153" selection-end-column="56" />
           <folding>
             <element signature="n#!!block;n#flteringOrder#0" />
             <element signature="n#!!block;n#splitindexAndOrder#0" />
+            <element signature="n#!!block;n#order1func#0" />
+            <element signature="n#!!block;n#order2func#0" />
           </folding>
         </state>
       </provider>

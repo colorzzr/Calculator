@@ -554,9 +554,20 @@ func calProcess(w http.ResponseWriter,r *http.Request){
 		var ansStr string;
 		//format all possible answer
 		for i := 0; i < len(answer); i++{
-			ansStr = ansStr + "x" +
-				strconv.Itoa(i) + "=" +
-				strconv.FormatFloat(answer[i], 'f', -1, 64) + " "
+			switch temp := answer[i].(type) {
+			case float64:
+				ansStr = ansStr + "x" +
+					strconv.Itoa(i) + "=" +
+					strconv.FormatFloat(temp, 'f', -1, 64) + " "
+				break
+			case complex128:
+				ansStr = ansStr + "x" +
+					strconv.Itoa(i) + "=" +
+					strconv.FormatFloat(real(temp), 'f', 2, 64) + "+" +
+					strconv.FormatFloat(imag(temp), 'f', 2, 64) + "i" + " "
+				break
+			}
+
 		}
 
 		answerPack.Answer = ansStr
