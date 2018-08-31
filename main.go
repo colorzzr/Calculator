@@ -15,6 +15,8 @@ import (
 type recievePack struct {
 	InputOp [] string
 	OperatingMode int64
+	EquationText string
+	Extra interface{}
 }
 
 type opeRand struct {
@@ -23,49 +25,45 @@ type opeRand struct {
 }
 
 type returnPack struct {
-	//Real  float64
-	//Imaginary float64
 	Answer string
 	OperationMode int64
 	ErrorMsg string
 	Date string
+	EquantionText string
 }
 
 //----------------------------------tcp html recieve and return---------------------------------
 func index_handler(w http.ResponseWriter,r *http.Request) {
-	w.Header().Set("Access-Control-Allow-Origin", "*");
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	if r.Body == nil {
 		http.Error(w, "Please send a request body", 400)
 		return
 	} else{
 		r.ParseForm();
-		fmt.Println("------Start Print Request------");
-		fmt.Println("Host: ", r.Host);
-		fmt.Println("Method ", r.Method);
-		fmt.Println("URL: ", r.URL);
-		fmt.Println("Parameter: ", r.URL.Query());
-		fmt.Println("Encode: ", r.Form.Encode());
-		var p []byte;
-		cc, err:= r.Body.Read(p);
-		fmt.Println("Body: ", cc, err);
+		fmt.Println("------Start Print Request------")
+		fmt.Println("Host: ", r.Host)
+		fmt.Println("Method ", r.Method)
+		fmt.Println("URL: ", r.URL)
+		fmt.Println("Parameter: ", r.URL.Query())
+		fmt.Println("Encode: ", r.Form.Encode())
 	}
 }
 
 func htmlRepson(w http.ResponseWriter,r *http.Request, backinfo returnPack){
-	fmt.Println("------Start Print Response------");
+	fmt.Println("------Start Print Response------")
 
 	//encode to byte[]
-	stringInfoInByte, err := json.Marshal(backinfo);
+	stringInfoInByte, err := json.Marshal(backinfo)
 	//convert byte[] to string
-	strConverted := string(stringInfoInByte);
+	strConverted := string(stringInfoInByte)
 
-	json.NewEncoder(w).Encode(string(strConverted));
+	json.NewEncoder(w).Encode(string(strConverted))
 	//check error
 	if err != nil{
-		fmt.Println("ERROR");
+		fmt.Println("ERROR")
 	}
-	fmt.Println(stringInfoInByte);
-	fmt.Println(strConverted);
+	fmt.Println(stringInfoInByte)
+	fmt.Println(strConverted)
 }
 
 func recieveData(w http.ResponseWriter,r *http.Request) recievePack {
@@ -265,7 +263,7 @@ func simpleCal(num1 float64, num2 float64, opRnad string) float64{
 	case "/":
 		return num1 / num2;
 	case "^":
-		return math.Pow(num1, num2);
+		return math.Pow(num1, num2)
 	}
 	return 0;
 }
@@ -279,22 +277,22 @@ func simpleCal(num1 float64, num2 float64, opRnad string) float64{
  ********************************************************************/
 func splitRealImaOp(input string)(float64, int64){
 	//first check number or operation
-	numtemp, err := strconv.ParseFloat(input, 64);
+	numtemp, err := strconv.ParseFloat(input, 64)
 	//if no erro it is number
 	if err == nil{
-		return numtemp, 0;
+		return numtemp, 0
 	} else {
 		//conner case input i
 		if(input == "i"){
-			return 1, 1;
+			return 1, 1
 		}
 
 		//then remove the end of string
-		input = input[:len(input)-1];
-		numtemp1, err1 := strconv.ParseFloat(input, 64);
+		input = input[:len(input)-1]
+		numtemp1, err1 := strconv.ParseFloat(input, 64)
 		//if it is number , then it is imaginary
 		if err1 == nil{
-			return numtemp1, 1;
+			return numtemp1, 1
 		} else{
 			return 0, 2;
 		}
@@ -459,13 +457,13 @@ func stackCalculationIm(numSta [] complex128, opSta[] opeRand)(complex128, strin
 func simpleCalIm(num1 complex128, num2 complex128, opRnad string) complex128{
 	switch opRnad {
 	case "a":
-		return num1 + num2;
+		return num1 + num2
 	case "-":
-		return num1 - num2;
+		return num1 - num2
 	case "*":
-		return num1 * num2;
+		return num1 * num2
 	case "/":
-		return num1 / num2;
+		return num1 / num2
 	}
 	return 0;
 }
@@ -473,24 +471,24 @@ func simpleCalIm(num1 complex128, num2 complex128, opRnad string) complex128{
 //---------------------------------------------End of imaginary function---------------------------------------------
 
 func filterExp(input [] string) ([]string, string){
-	locOfExp := -1;
-	endOfExp := -1;
-	numOfParenthesis := 0;
-	numOfParenthesisBefor := 0;
+	locOfExp := -1
+	endOfExp := -1
+	numOfParenthesis := 0
+	numOfParenthesisBefor := 0
 	for i := 0;  i < len(input); i++{
 		if input[i] == "exp("{
-			locOfExp = i + 1;
+			locOfExp = i + 1
 			//record number of parenthesis before the exp
-			numOfParenthesisBefor = numOfParenthesis;
-			numOfParenthesis++;
+			numOfParenthesisBefor = numOfParenthesis
+			numOfParenthesis++
 		} else if input[i] == "("{
-			numOfParenthesis++;
+			numOfParenthesis++
 		} else if input[i] == ")"{
-			numOfParenthesis--;
+			numOfParenthesis--
 			//we found the right closed parenthesis
 			if numOfParenthesisBefor == numOfParenthesis{
-				endOfExp = i;
-				break;
+				endOfExp = i
+				break
 			}
 		}
 	}
@@ -504,52 +502,53 @@ func filterExp(input [] string) ([]string, string){
 
 	//if not exp end recursion and return original
 	if locOfExp == -1{
-		return input, "Good";
+		return input, "Good"
 	}
 
-	fmt.Println(locOfExp, endOfExp);
-	fmt.Println(input[locOfExp:endOfExp]);
-	answer, err := basicCalStack(input[locOfExp:endOfExp]);
+	fmt.Println(locOfExp, endOfExp)
+	fmt.Println(input[locOfExp:endOfExp])
+	answer, err := basicCalStack(input[locOfExp:endOfExp])
 	//error checking
 	if err != "Good"{
-		return nil, err;
+		return nil, err
 	}
-	strAns := strconv.FormatFloat(math.Exp(answer), 'f', 3, 64);
+	strAns := strconv.FormatFloat(math.Exp(answer), 'f', 3, 64)
 
 	//appending new array
-	var newInput [] string;
+	var newInput [] string
 
 	for i:=0; i < locOfExp - 1; i++{
-		newInput = append(newInput, input[i]);
+		newInput = append(newInput, input[i])
 	}
-	newInput = append(newInput, strAns);
+	newInput = append(newInput, strAns)
 	for i:=endOfExp + 1; i < len(input); i++{
-		newInput = append(newInput, input[i]);
+		newInput = append(newInput, input[i])
 	}
 
 	fmt.Println(newInput);
-	return newInput, "Good";
+	return newInput, "Good"
 }
 
-func calProcess(w http.ResponseWriter,r *http.Request){
+func calProcess(w http.ResponseWriter,r *http.Request) {
 	fmt.Println("------calProcess Ack!------")
-
-
 
 	//print request info
 	w.Header().Set("Access-Control-Allow-Origin", "*")
-	index_handler(w, r);
-
-
+	index_handler(w, r)
 
 	//get the data in struct
-	recievedData := recieveData(w,r)
-	fmt.Println(recievedData.InputOp)
-	fmt.Println("Operating Mode:", recievedData.OperatingMode)
+	recievedData := recieveData(w, r)
 
 	var answerPack returnPack
+
+	//single integraal calculation
+	if recievedData.OperatingMode == 4 {
+		answer, errorMsg := singleVarIntegral(recievedData)
+		answerPack.Answer = strconv.FormatFloat(answer, 'f', 2, 64)
+		answerPack.ErrorMsg = errorMsg
+
 	//higher order mode
-	if recievedData.OperatingMode == 3{
+	}else if recievedData.OperatingMode == 3{
 		answer := higherOrderCalc(recievedData.InputOp)
 		var ansStr string;
 		//format all possible answer
@@ -572,6 +571,7 @@ func calProcess(w http.ResponseWriter,r *http.Request){
 
 		answerPack.Answer = ansStr
 		answerPack.ErrorMsg = "Good"
+
 		//abs mode
 	}else if recievedData.OperatingMode == 2{
 		answer, errMsg := imageCalStack(recievedData.InputOp)
@@ -580,8 +580,8 @@ func calProcess(w http.ResponseWriter,r *http.Request){
 		magnitude := math.Sqrt(math.Pow(real(answer), 2) + math.Pow(imag(answer), 2))
 		phase := math.Atan(imag(answer)/real(answer))
 		//forming the return package aaaas mag:a + phaaaase:b
-		answerPack.Answer = "Magnitude:" + strconv.FormatFloat(magnitude, 'f', -1, 64) + "+" +
-			"Magnitude:" + strconv.FormatFloat(phase, 'f', -1, 64)
+		answerPack.Answer = "Magnitude:" + strconv.FormatFloat(magnitude, 'f', 2, 64) + "+" +
+			"Magnitude:" + strconv.FormatFloat(phase, 'f', 2, 64)
 		answerPack.ErrorMsg = errMsg
 
 		//imaginery mode
@@ -589,22 +589,24 @@ func calProcess(w http.ResponseWriter,r *http.Request){
 		answer, errMsg := imageCalStack(recievedData.InputOp)
 		//forming the return package a + bi
 		answerPack.Answer = strconv.FormatFloat(real(answer), 'f', -1, 64) + "+" +
-			strconv.FormatFloat(imag(answer), 'f', -1, 64) + "i"
+			strconv.FormatFloat(imag(answer), 'f', 2, 64) + "i"
 		//if nothing wrong return Good
 		answerPack.ErrorMsg = errMsg
 		//real mode
 	}else {
 		answer, errMsg := basicCalStack(recievedData.InputOp)
 		//forming the return package
-		answerPack.Answer = strconv.FormatFloat(answer, 'f', -1, 64)
-		//if nothing wrong return Good
+		answerPack.Answer = strconv.FormatFloat(answer, 'f', 2, 64)
 		answerPack.ErrorMsg = errMsg
 	}
 
+	//assign the regular term
 	answerPack.OperationMode = recievedData.OperatingMode
 	y, m, d := time.Now().Date()
 	answerPack.Date = strconv.Itoa(y) + "-" + m.String() + "-" + strconv.Itoa(d)
-	//storeAnsToDataBase(answerPack, recievedData);
+	answerPack.EquantionText = recievedData.EquationText
+
+	//response to the web and store to database
 	htmlRepson(w, r, answerPack)
 	pushAns(answerPack)
 	fmt.Println("-----Finish Data Exchange------")
