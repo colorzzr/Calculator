@@ -103,7 +103,7 @@ func basicCalStack(operation [] string) (float64, string) {
 	var numOfParenthesis int64 = 0
 	for i := 0; i < len(operation); i++{
 		numtemp, err := strconv.ParseFloat(operation[i], 64)
-		fmt.Println(numtemp, err)
+		//fmt.Println(numtemp, err)
 		//then it is a operataion
 		if err != nil {
 			//create a new node for oprand
@@ -182,8 +182,8 @@ func basicCalStack(operation [] string) (float64, string) {
 	opSta = append(opSta, temp);
 	numSta = append(numSta, -32767);
 
-	fmt.Println("OpRand:", opSta);
-	fmt.Println("Number", numSta);
+	//fmt.Println("OpRand:", opSta);
+	//fmt.Println("Number", numSta);
 
 	//then use the stack calculation to get answer
 	answer, err := stackCalculation(numSta, opSta);
@@ -207,46 +207,46 @@ func stackCalculation(numSta [] float64, opSta[] opeRand)(float64, string){
 		curLevel := opSta[i].opLevel;
 		//if it is higher level we need check later one
 		if curLevel > topLevel{
-			numNewSta = append(numNewSta, numSta[i + 1]);
-			opNewSta = append(opNewSta, opSta[i]);
-			topLevel = curLevel;
+			numNewSta = append(numNewSta, numSta[i + 1])
+			opNewSta = append(opNewSta, opSta[i])
+			topLevel = curLevel
 			//else do operation until there is no higher
 		} else{
 			for ; len(numNewSta) != 1 && curLevel <= topLevel;{
 				//refresh new level
 
-				fmt.Println("topLevel:",topLevel, "curLevel:",curLevel);
-				fmt.Println("OpRand:", numNewSta);
-				fmt.Println("Number", opNewSta);
+				//fmt.Println("topLevel:",topLevel, "curLevel:",curLevel);
+				//fmt.Println("OpRand:", numNewSta);
+				//fmt.Println("Number", opNewSta);
 
-				temp := simpleCal(numNewSta[len(numNewSta)- 2], numNewSta[len(numNewSta) -  1], opNewSta[len(opNewSta)- 1].operation);
+				temp := simpleCal(numNewSta[len(numNewSta)- 2], numNewSta[len(numNewSta) -  1], opNewSta[len(opNewSta)- 1].operation)
 				//fmt.Println(numNewSta[len(numNewSta)- 2], numNewSta[len(numNewSta) -  1], opNewSta[len(opNewSta)- 1].operation, "Answer:", temp)
 
 				//pop the two number and a oprand
-				numNewSta = numNewSta[:len(numNewSta)- 2];
-				opNewSta = opNewSta[:len(opNewSta) - 1];
+				numNewSta = numNewSta[:len(numNewSta)- 2]
+				opNewSta = opNewSta[:len(opNewSta) - 1]
 
 				//push answer and new things
-				numNewSta = append(numNewSta, temp);
+				numNewSta = append(numNewSta, temp)
 				//fmt.Println("New OpRand:", opNewSta);
 				//fmt.Println("New Number", numNewSta);
 				//fmt.Println("");
 				if len(opNewSta) <= 0{
-					break;
+					break
 				}
-				topLevel = opNewSta[len(opNewSta)- 1].opLevel;
+				topLevel = opNewSta[len(opNewSta)- 1].opLevel
 
 			}
 			if opSta[i].operation != "eof"{
 				//then push the new one
-				numNewSta = append(numNewSta, numSta[i + 1]);
-				opNewSta = append(opNewSta, opSta[i]);
-				topLevel = curLevel;
+				numNewSta = append(numNewSta, numSta[i + 1])
+				opNewSta = append(opNewSta, opSta[i])
+				topLevel = curLevel
 			}
 		}
 	}
-	fmt.Println("Now OpRand:", opNewSta);
-	fmt.Println("Now Number", numNewSta);
+	//fmt.Println("Now OpRand:", opNewSta);
+	//fmt.Println("Now Number", numNewSta);
 
 	return numNewSta[0], "Good";
 }
@@ -541,9 +541,37 @@ func calProcess(w http.ResponseWriter,r *http.Request) {
 
 	var answerPack returnPack
 
+	//triple integraal calculation
+	if recievedData.OperatingMode == 6 {
+		XupperBound := interfaceToFloat(recievedData.Extra.(map[string]interface {})["XupperBound"])
+		XlowerBound := interfaceToFloat(recievedData.Extra.(map[string]interface {})["XlowerBound"])
+		YupperBound := interfaceToFloat(recievedData.Extra.(map[string]interface {})["YupperBound"])
+		YlowerBound := interfaceToFloat(recievedData.Extra.(map[string]interface {})["YlowerBound"])
+		ZupperBound := interfaceToFloat(recievedData.Extra.(map[string]interface {})["ZupperBound"])
+		ZlowerBound := interfaceToFloat(recievedData.Extra.(map[string]interface {})["ZlowerBound"])
+
+
+		answer, errorMsg := tripleRiemannSumIntegral(recievedData.InputOp, XupperBound, XlowerBound, YupperBound, YlowerBound, ZupperBound, ZlowerBound)
+		answerPack.Answer = strconv.FormatFloat(answer, 'f', 2, 64)
+		answerPack.ErrorMsg = errorMsg
+	//double integraal calculation
+	}else if recievedData.OperatingMode == 5 {
+		XupperBound := interfaceToFloat(recievedData.Extra.(map[string]interface {})["XupperBound"])
+		XlowerBound := interfaceToFloat(recievedData.Extra.(map[string]interface {})["XlowerBound"])
+		YupperBound := interfaceToFloat(recievedData.Extra.(map[string]interface {})["YupperBound"])
+		YlowerBound := interfaceToFloat(recievedData.Extra.(map[string]interface {})["YlowerBound"])
+
+		answer, errorMsg := doubleRiemannSumIntegral(recievedData.InputOp, XupperBound, XlowerBound, YupperBound, YlowerBound)
+		answerPack.Answer = strconv.FormatFloat(answer, 'f', 2, 64)
+		answerPack.ErrorMsg = errorMsg
+
+
 	//single integraal calculation
-	if recievedData.OperatingMode == 4 {
-		answer, errorMsg := singleVarIntegral(recievedData)
+	}else if recievedData.OperatingMode == 4 {
+		upperBound := interfaceToFloat(recievedData.Extra.(map[string]interface {})["XupperBound"])
+		lowerBound := interfaceToFloat(recievedData.Extra.(map[string]interface {})["XlowerBound"])
+
+		answer, errorMsg := RiemannSumIntegral(recievedData.InputOp, upperBound, lowerBound)
 		answerPack.Answer = strconv.FormatFloat(answer, 'f', 2, 64)
 		answerPack.ErrorMsg = errorMsg
 
@@ -592,7 +620,7 @@ func calProcess(w http.ResponseWriter,r *http.Request) {
 			strconv.FormatFloat(imag(answer), 'f', 2, 64) + "i"
 		//if nothing wrong return Good
 		answerPack.ErrorMsg = errMsg
-		//real mode
+		//normal mode
 	}else {
 		answer, errMsg := basicCalStack(recievedData.InputOp)
 		//forming the return package
